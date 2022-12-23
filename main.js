@@ -13,6 +13,8 @@ const gameSection = document.querySelector(".game-section");
 const carrot = document.querySelector(".carrot");
 const bug = document.querySelector(".bug");
 const infoCounter = document.querySelector(".info__counter");
+const gameRect = gameSection.getBoundingClientRect();
+const CARROT_SIZE = 80;
 
 playBtn.addEventListener("click", () => {
   play = true;
@@ -73,14 +75,19 @@ function handleCountEnd(clickBug) {
 }
 
 function makeBugAndCarrot() {
+  const x1 = 0;
+  const y1 = 0;
+  const x2 = gameRect.width - CARROT_SIZE;
+  const y2 = gameRect.height - CARROT_SIZE;
   for (let i = 0; i <= carrotCount; i++) {
     let carrot = document.createElement("img");
     carrot.setAttribute("src", "./img/carrot.png");
     carrot.classList.add("carrot");
-    // let carrotX = Math.floor(Math.random() * gameSection.clientWidth);
-    // let carrotY = Math.floor(Math.random() * gameSection.clientHeight);
-    // carrot.style.transform = `translateY(${carrotX})`;
-    // carrot.style.transform = `translateX(${carrotY})`;
+    carrot.style.position = "absolute";
+    const x = randomNumber(x1, x2);
+    const y = randomNumber(y1, y2);
+    carrot.style.left = `${x}px`;
+    carrot.style.top = `${y}px`;
     gameSection.appendChild(carrot);
     infoCounter.textContent = `${carrotCount + 1}`;
     carrot.addEventListener("click", () => {
@@ -96,16 +103,21 @@ function makeBugAndCarrot() {
     let bug = document.createElement("img");
     bug.setAttribute("src", "./img/bug.png");
     bug.classList.add("bug");
-    // let bugX = Math.floor(Math.random() * gameSection.clientWidth);
-    // let bugY = Math.floor(Math.random() * gameSection.clientHeight);
-    // bug.style.transform = `translateY(${bugY})`;
-    // bug.style.transform = `translateX(${bugX})`;
+    bug.style.position = "absolute";
+    const x = randomNumber(x1, x2);
+    const y = randomNumber(y1, y2);
+    bug.style.left = `${x}px`;
+    bug.style.top = `${y}px`;
     gameSection.appendChild(bug);
     bug.addEventListener("click", () => {
       clickBug = true;
       handleCountEnd(clickBug);
     });
   }
+}
+
+function randomNumber(min, max) {
+  return Math.random() * (max - min) + min;
 }
 
 function resetBugAndCarrot() {

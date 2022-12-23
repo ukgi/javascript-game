@@ -84,6 +84,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 999;
 }
 
 .replay-btn {
@@ -111,6 +112,7 @@
 }
 
 .game-section {
+  position: relative;
   width: 100%;
   height: 50vh;
 }
